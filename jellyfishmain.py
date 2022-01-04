@@ -43,6 +43,7 @@ class PatternName:
 class JellyFishController:
     zones: Dict = {}
     patternFiles: List[PatternName] = []
+    version: Dict = {}
     __ws = websocket.WebSocket()
     __address: str
     __printJSON: bool
@@ -76,6 +77,12 @@ class JellyFishController:
         self.zones = zones
         return self.zones
 
+    def getVersion(self) -> Dict:
+        """Returns and stores version information, including details, whether an update is available, and (short) version number"""
+        version = self.__getData("version")
+        self.version = version
+        return self.version
+
     def __getData(self, data) -> any:
         gd = GetData(cmd='toCtlrGet', get=[[data]])
         self.__send(json.dumps(gd.to_dict()))
@@ -87,6 +94,7 @@ class JellyFishController:
             self.__ws.connect("ws://" + self.__address + ":9000")
             self.getZones()
             self.getPatterns()
+            self.getVersion()
         except:
             print("Could not connect to controller at " + self.__address)
         
