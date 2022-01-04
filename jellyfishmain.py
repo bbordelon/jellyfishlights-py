@@ -78,7 +78,7 @@ class JellyFishController:
         return self.zones
 
     def getVersion(self) -> Dict:
-        """Returns and stores version information, including details, whether an update is available, and (short) version number"""
+        """Returns and stores version information: details, isUpdate, ver"""
         version = self.__getData("version")
         self.version = version
         return self.version

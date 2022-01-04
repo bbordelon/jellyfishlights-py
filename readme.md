@@ -20,6 +20,11 @@ controllerIP = "192.168.0.245"
 #We set the printJSON parameter to true to see the JSON sent to and recieved from the controller
 jfc = JellyFishController(controllerIP, True)
 jfc.connectAndGetData()
+# Get version information from the controller
+print("Details: " + jfc.version.get("details"))
+print("Version number: " + jfc.version.get("ver"))
+print("Update available: " + str(jfc.version.get("isUpdate")))
+
 jfc.turnOff()
 
 lights = LightString()
@@ -34,5 +39,6 @@ lights.add(Light(0, 0, 255))
 #  have an optional zones parameter. If not filled the api wrapper
 #  will fill it with all the zones it got from the controller
 jfc.sendLightString(lights, ["Zone"])
+
 
 ```
